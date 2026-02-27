@@ -2,10 +2,16 @@
 
 using namespace std;
 
-string firstScrnMsg[2] = {
+string firstScrnMsg[3] = {
     "Please select action:",
+    "1. "
     "0. Exit"
 };
+
+void clean(){
+    cout<<"\x1b[2J\x1b[1;1H"; //ANSI code to clean up terminal
+    cout.flush();
+}
 
 int main(){
     short int ctrlnum {100};
@@ -35,7 +41,6 @@ int main(){
             break;
         }
 
-        cout<<"\x1b[2J\x1b[1;1H"; //ANSI code to clean up terminal
-        cout.flush();
+        clean();
     }
 }
