@@ -1,17 +1,16 @@
 #include <iostream>
+#include <limits>
+
+#include "sdtfun.h"
+#include "expfun.h"
 
 using namespace std;
 
 string firstScrnMsg[3] = {
     "Please select action:",
-    "1. "
-    "0. Exit"
+    "1. Add expence."
+    "0. Exit."
 };
-
-void clean(){
-    cout<<"\x1b[2J\x1b[1;1H"; //ANSI code to clean up terminal
-    cout.flush();
-}
 
 int main(){
     short int ctrlnum {100};
@@ -19,14 +18,15 @@ int main(){
 
     while (true) {
         for (int i {0}; i<FSMsgSize; i++){
-            cout<<firstScrnMsg[i]<<endl;
+            cout<<firstScrnMsg[i]<<"\n"<<endl;
         }
 
         if (!(cin>>ctrlnum)){
             cout<<"Invalid input..."<<endl;
             cin.clear();
-            cin.ignore();
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
+            pressEnter();
             ctrlnum = 100;
         }
 
@@ -40,7 +40,5 @@ int main(){
         default:
             break;
         }
-
-        clean();
     }
 }
