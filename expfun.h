@@ -1,1 +1,1 @@
-int addExpence();
+int addExpence(string);
