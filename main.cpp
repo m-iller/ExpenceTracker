@@ -18,8 +18,10 @@ int main(){
     string userInput {"none"};
 
     while (true) {
-        cin>>userInput;
-        userInput += " ";
+        getline(cin, userInput);
+        userInput = userInput + " ";
+
+        //cout<<userInput;
 
         if(userInput.find("exp_mngr") == 0) {
             int count {0};
@@ -29,21 +31,20 @@ int main(){
 
             size_t cmdPos [2];
 
-            while(count<=2){
-                cashInpApp = userInput.find(" ", cashLastApp);
+            while(count<2){
+                cashInpApp = userInput.find(" ", cashLastApp+1);
 
                 cmdPos[count] = cashInpApp;
 
                 cashLastApp = cashInpApp;
 
+                cout<<cmdPos[count]<<endl;
                 ++count;
             }
 
-            string command {userInput, cmdPos[0], cmdPos[1]-cmdPos[0]};
+            string command {userInput, cmdPos[0], cmdPos[1]-cmdPos[0]-1};
             cout<<command;
         }
-
-        userInput = ;
     }
 
     return 0;
