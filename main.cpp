@@ -1,29 +1,30 @@
 #include <iostream>
 #include <limits>
 
-/*
+
 #include "sdtfun.h"
 #include "expfun.h"
-*/
+
 
 using namespace std;
 
 /*
 exp_mngr:
     test - testing command returns smth
-    endprg - ends the programm
+    end - ends the programm
+    add -m (commentary message) --name (expense name, default - noName) --amount (default 0) 
 */
 
 int main(){
     string userInput {"none"};
 
     while (true) {
+        string cmd{};
+        
         getline(cin, userInput);
         userInput = userInput + " ";
 
-        //cout<<userInput;
-
-        if(userInput.find("exp_mngr") == 0) {
+        if(userInput.find("expence_manager") == 0) {
             int count {0};
 
             size_t cashInpApp;
@@ -42,8 +43,14 @@ int main(){
                 ++count;
             }
 
-            string command {userInput, cmdPos[0], cmdPos[1]-cmdPos[0]-1};
-            cout<<command;
+            string command {userInput, cmdPos[0]+1, cmdPos[1]-cmdPos[0]-1};
+            cmd = command; //LOG: command call
+        }
+
+        if (cmd == "test") {
+            testFunc();
+        } else if (cmd == "end") {
+            return 0;
         }
     }
 

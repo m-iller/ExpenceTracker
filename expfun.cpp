@@ -2,9 +2,11 @@
 
 using namespace std;
 
-string Desc;
+void testFunc() {
+    cout<<"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vitae justo quis sapien varius accumsan."<<endl;
+}
 
-int addExpence(string unfrom){
+int addExpence(){
     //TODO: splitting unformed string or some other way
 
     return 0;
