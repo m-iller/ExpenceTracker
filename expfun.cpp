@@ -2,7 +2,6 @@
 
 using namespace std;
 
-int expForm[3];
 string Desc;
 
 int addExpence(string unfrom){
