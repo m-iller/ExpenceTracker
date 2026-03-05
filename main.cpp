@@ -1,44 +1,58 @@
 #include <iostream>
 #include <limits>
 
+
 #include "sdtfun.h"
 #include "expfun.h"
 
+
 using namespace std;
 
-string firstScrnMsg[3] = {
-    "Please select action:",
-    "1. Add expence."
-    "0. Exit."
-};
+/*
+exp_mngr:
+    test - testing command returns smth
+    end - ends the programm
+    add -m (commentary message) --name (expense name, default - noName) --amount (default 0) 
+*/
 
 int main(){
-    short int ctrlnum {100};
-    int FSMsgSize {sizeof(firstScrnMsg)/sizeof(firstScrnMsg[0])};
+    string userInput {"none"};
 
     while (true) {
-        for (int i {0}; i<FSMsgSize; i++){
-            cout<<firstScrnMsg[i]<<"\n"<<endl;
+        string cmd{};
+        
+        getline(cin, userInput);
+        userInput = userInput + " ";
+
+        if(userInput.find("expence_manager") == 0) {
+            int count {0};
+
+            size_t cashInpApp;
+            size_t cashLastApp {0};
+
+            size_t cmdPos [2];
+
+            while(count<2){
+                cashInpApp = userInput.find(" ", cashLastApp+1);
+
+                cmdPos[count] = cashInpApp;
+
+                cashLastApp = cashInpApp;
+
+                cout<<cmdPos[count]<<endl;
+                ++count;
+            }
+
+            string command {userInput, cmdPos[0]+1, cmdPos[1]-cmdPos[0]-1};
+            cmd = command; //LOG: command call
         }
 
-        if (!(cin>>ctrlnum)){
-            cout<<"Invalid input..."<<endl;
-            cin.clear();
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-            pressEnter();
-            ctrlnum = 100;
-        }
-
-        switch (ctrlnum)
-        {
-        case 0:
+        if (cmd == "test") {
+            testFunc();
+        } else if (cmd == "end") {
             return 0;
-            break;
-        case 100: //always continue; for error handling
-            break;
-        default:
-            break;
         }
     }
+
+    return 0;
 }
