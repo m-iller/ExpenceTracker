@@ -11,7 +11,7 @@ using namespace std;
 expence-tracker:
     test - testing command returns smth
     end - ends the programm
-    add --description --amount (default 0) 
+    add --description --amount 
 */
 
 int main(){
@@ -33,12 +33,8 @@ int main(){
 
             while(count<2){
                 cashInpApp = userInput.find(" ", cashLastApp+1);
-
                 cmdPos[count] = cashInpApp;
-
                 cashLastApp = cashInpApp;
-
-                cout<<cmdPos[count]<<endl;
                 ++count;
             }
 
@@ -54,6 +50,7 @@ int main(){
         } else if (cmd == "add") {
             addExpence(userInput);
         } else {
+            logAction("Command input failed//Invalid command input");
             cerr<<"Invalid command input"<<endl;
         }
     }

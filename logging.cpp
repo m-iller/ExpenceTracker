@@ -9,5 +9,5 @@ void logAction(std::string logMsg){
         log<<logMsg<<std::endl;
     }
 
-    out.close();
+    log.close();
 }
