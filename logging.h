@@ -1,0 +1,1 @@
+void logAction(std::string);

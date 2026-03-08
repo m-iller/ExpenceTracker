@@ -2,3 +2,6 @@
 output/
 *.exe
 output/main.exe
+logs/logfile.txt
+logs/
+data/
