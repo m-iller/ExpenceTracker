@@ -41,8 +41,8 @@ int addExpence(std::string userInputLine){ // e.g. command == "expence-tracker a
     logAction("Adding new expence id" + std::to_string(expenceID));
 
     //getting desc&amount
-    size_t descIndex {userInputLine.rfind("--description")};
-    size_t amountIndex {userInputLine.rfind("--amount")};
+    size_t descIndex {userInputLine.rfind("--desc")};
+    size_t amountIndex {userInputLine.rfind("--a")};
 
     if(descIndex==std::string::npos or amountIndex==std::string::npos){
         logAction("Command input failed//Invalid command arguments");

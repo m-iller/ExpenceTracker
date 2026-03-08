@@ -8,10 +8,10 @@
 using namespace std;
 
 /*
-expence-tracker:
-    test - testing command returns smth
-    end - ends the programm
-    add --description --amount 
+ext:
+    test
+    end
+    add --desc --a (amount)
 */
 
 int main(){
@@ -23,7 +23,7 @@ int main(){
         getline(cin, userInput);
         userInput = userInput + " ";
 
-        if(userInput.find("expence-tracker") == 0) {
+        if(userInput.find("ext") == 0) {
             int count {0};
 
             size_t cashInpApp;
