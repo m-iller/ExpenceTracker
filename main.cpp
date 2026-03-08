@@ -1,18 +1,17 @@
 #include <iostream>
 #include <limits>
 
-
-#include "sdtfun.h"
 #include "expfun.h"
+#include "logging.h"
 
 
 using namespace std;
 
 /*
-exp_mngr:
+expence-tracker:
     test - testing command returns smth
     end - ends the programm
-    add -m (commentary message) --name (expense name, default - noName) --amount (default 0) 
+    add --description --amount (default 0) 
 */
 
 int main(){
@@ -24,7 +23,7 @@ int main(){
         getline(cin, userInput);
         userInput = userInput + " ";
 
-        if(userInput.find("expence_manager") == 0) {
+        if(userInput.find("expence-tracker") == 0) {
             int count {0};
 
             size_t cashInpApp;
@@ -44,13 +43,18 @@ int main(){
             }
 
             string command {userInput, cmdPos[0]+1, cmdPos[1]-cmdPos[0]-1};
-            cmd = command; //LOG: command call
-        }
+            cmd = command; 
+            logAction("User has called a command");
+        } 
 
         if (cmd == "test") {
             testFunc();
         } else if (cmd == "end") {
             return 0;
+        } else if (cmd == "add") {
+            addExpence(userInput, cmd);
+        } else {
+            cerr<<"Invalid command input"<<endl;
         }
     }
 
