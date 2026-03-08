@@ -1,7 +1,13 @@
 #include <iostream>
+#include <fstream>
 
-using namespace std;
+void logAction(std::string logMsg){
+    std::ofstream log;
+    log.open("logs/logfile.txt", std::ios::app);
 
-void logAction(){
-    return;
+    if(log.is_open()){
+        log<<logMsg<<std::endl;
+    }
+
+    out.close();
 }

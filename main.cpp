@@ -52,7 +52,7 @@ int main(){
         } else if (cmd == "end") {
             return 0;
         } else if (cmd == "add") {
-            addExpence(userInput, cmd);
+            addExpence(userInput);
         } else {
             cerr<<"Invalid command input"<<endl;
         }
