@@ -3,6 +3,7 @@
 #include <string>
 #include <iomanip> //tf is this ???
 #include <ctime>
+#include <sstream>
 
 #include "logging.h"
 
@@ -91,4 +92,33 @@ int addExpence(std::string userInputLine){ // e.g. command == "expence-tracker a
 
 void listExpence(){
     logAction("Generating an expence list...");
+
+    std::ifstream readStream("data/expences.csv");
+    std::string line;    
+    
+    std::cout<<"ID\tDate\t\tAmount\tDescription"<<std::endl;
+
+    if (readStream.is_open()){
+        while(getline(readStream, line)){
+            if(line==""){   break;  } //end line on empty line
+
+            std::string ID;
+            std::string desc;
+            std::string amount;
+            std::string date;
+
+            std::stringstream ss(line);
+
+            //reding until ,
+            std::getline(ss, ID, ',');
+            std::getline(ss, desc, ',');
+            std::getline(ss, amount, ',');
+            std::getline(ss, date, ',');
+            
+
+            // restricting string length to a certain amount of symbols
+            std::cout<<std::left<<ID<<"\t"<<date<<"\t"<<"$"<<amount<<"\t"<<desc<<std::endl;
+        }
+    }
+    readStream.close();
 }

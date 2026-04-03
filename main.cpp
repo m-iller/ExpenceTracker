@@ -50,7 +50,7 @@ int main(){
             return 0;
         } else if (cmd == "add") {
             addExpence(userInput);
-        } else if {
+        } else if (cmd == "list") {
             listExpence();
         } else {
             logAction("Command input failed//Invalid command input");
