@@ -26,7 +26,7 @@ int addExpence(std::string userInputLine){ // e.g. command == "expence-tracker a
         while(getline(fetchIDstream, line)){
             if (line == ""){    break;  }
             lastline = line;
-        } //TODO: Make it more effective than just reading all lines one by one (read  only last one)
+        } //TODO: Make it more effective than just reading all lines one by one (read only last one)
         
         if(!(line=="")){
             size_t idEndIndex {line.find(",")};
@@ -40,11 +40,11 @@ int addExpence(std::string userInputLine){ // e.g. command == "expence-tracker a
 
     logAction("Adding new expence id" + std::to_string(expenceID));
 
-    //getting desc&amount
+    //getting desc&amount indexes in msg
     size_t descIndex {userInputLine.rfind("--desc")};
     size_t amountIndex {userInputLine.rfind("--a")};
 
-    if(descIndex==std::string::npos or amountIndex==std::string::npos){
+    if(descIndex==std::string::npos or amountIndex==std::string::npos){ //if there are none
         logAction("Command input failed//Invalid command arguments");
         std::cerr<<"Invalid command arguments"<<std::endl;
 
@@ -55,7 +55,7 @@ int addExpence(std::string userInputLine){ // e.g. command == "expence-tracker a
     size_t cash_amountIndex;
     size_t amountPos[2];
     size_t cash_LastAmountIndex{amountIndex};
-    while(count<2){
+    while(count<2){ //getting amount until there is a space in string
         cash_amountIndex = userInputLine.find(" ", cash_LastAmountIndex+1);
         amountPos[count] = cash_amountIndex;
         cash_LastAmountIndex = cash_amountIndex;
@@ -87,4 +87,8 @@ int addExpence(std::string userInputLine){ // e.g. command == "expence-tracker a
     fetchInputStream.close();
 
     return 0;
+}
+
+void listExpence(){
+    logAction("Generating an expence list...");
 }

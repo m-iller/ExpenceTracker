@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 
-void logAction(std::string logMsg){
+void logAction(std::string logMsg){ //adds a log message to the file
     std::ofstream log;
     log.open("logs/logfile.txt", std::ios::app);
 

@@ -8,10 +8,11 @@
 using namespace std;
 
 /*
-ext:
+exm:
     test
     end
     add --desc --a (amount)
+    list
 */
 
 int main(){
@@ -23,7 +24,7 @@ int main(){
         getline(cin, userInput);
         userInput = userInput + " ";
 
-        if(userInput.find("ext") == 0) {
+        if(userInput.find("exm") == 0) { //catching expence manager call
             int count {0};
 
             size_t cashInpApp;
@@ -31,7 +32,7 @@ int main(){
 
             size_t cmdPos [2];
 
-            while(count<2){
+            while(count<2){ //determining cmd position in string
                 cashInpApp = userInput.find(" ", cashLastApp+1);
                 cmdPos[count] = cashInpApp;
                 cashLastApp = cashInpApp;
@@ -49,6 +50,8 @@ int main(){
             return 0;
         } else if (cmd == "add") {
             addExpence(userInput);
+        } else if {
+            listExpence();
         } else {
             logAction("Command input failed//Invalid command input");
             cerr<<"Invalid command input"<<endl;
