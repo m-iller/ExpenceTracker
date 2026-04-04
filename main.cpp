@@ -13,6 +13,7 @@ exm:
     end
     add --desc --a (amount)
     list
+    summary --month (in format of 08, 12, 01)
 */
 
 int main(){
@@ -52,6 +53,8 @@ int main(){
             addExpence(userInput);
         } else if (cmd == "list") {
             listExpence();
+        } else if (cmd == "summary") {
+            sumExpence(userInput);
         } else {
             logAction("Command input failed//Invalid command input");
             cerr<<"Invalid command input"<<endl;

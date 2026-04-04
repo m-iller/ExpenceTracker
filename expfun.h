@@ -1,4 +1,5 @@
 //Functions:
 void testFunc();
-int addExpence(std::string);
+void addExpence(std::string);
 void listExpence();
+void sumExpence(std::string);

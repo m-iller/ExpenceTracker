@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <iomanip> //tf is this ???
+#include <iomanip>
 #include <ctime>
 #include <sstream>
 
@@ -11,7 +11,7 @@ void testFunc() {
     std::cout<<"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vitae justo quis sapien varius accumsan."<<std::endl;
 }
 
-int addExpence(std::string userInputLine){ // e.g. command == "expence-tracker add --description "Dinner" --amount 20"
+void addExpence(std::string userInputLine){ // e.g. command == "expence-tracker add --description "Dinner" --amount 20"
     userInputLine = userInputLine+" ";
 
     //need to write ID, Date, Desc, amount
@@ -49,7 +49,7 @@ int addExpence(std::string userInputLine){ // e.g. command == "expence-tracker a
         logAction("Command input failed//Invalid command arguments");
         std::cerr<<"Invalid command arguments"<<std::endl;
 
-        return 0;
+        return;
     }
 
     int count{0};
@@ -86,8 +86,6 @@ int addExpence(std::string userInputLine){ // e.g. command == "expence-tracker a
         fetchInputStream<<expenceID<<","<<expenceDesc<<","+expenceAmount<<","<<std::put_time(&tm, "%Y-%m-%d")<<"\n";
     }
     fetchInputStream.close();
-
-    return 0;
 }
 
 void listExpence(){
@@ -121,4 +119,18 @@ void listExpence(){
         }
     }
     readStream.close();
+}
+
+void sumExpence(std::string userInput){
+    logAction("Generating summary for user...");
+
+    //getting month
+    std::string month;
+    size_t monthIndex {userInput.rfind("--month")};
+    if (monthIndex!=std::string::npos){
+        month = userInput.substr(monthIndex+8, monthIndex+10);
+    } 
+    
+    
+    std::cout<<month;
 }
