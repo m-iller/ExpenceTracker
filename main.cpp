@@ -17,6 +17,7 @@ exm:
 */
 
 int main(){
+    ensureDataEnvironment();
     string userInput {"none"};
 
     while (true) {
@@ -55,6 +56,8 @@ int main(){
             listExpence();
         } else if (cmd == "summary") {
             sumExpence(userInput);
+        } else if (cmd == "delete") {
+            deleteExpence(userInput);
         } else {
             logAction("Command input failed//Invalid command input");
             cerr<<"Invalid command input"<<endl;

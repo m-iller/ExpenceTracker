@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <ctime>
 #include <sstream>
+#include <vector>
 
 #include "logging.h"
 
@@ -124,13 +125,126 @@ void listExpence(){
 void sumExpence(std::string userInput){
     logAction("Generating summary for user...");
 
-    //getting month
-    std::string month;
+    std::string monthFilter;
     size_t monthIndex {userInput.rfind("--month")};
-    if (monthIndex!=std::string::npos){
-        month = userInput.substr(monthIndex+8, monthIndex+10);
-    } 
-    
-    
-    std::cout<<month;
+    if (monthIndex != std::string::npos){
+        size_t start {monthIndex + 7};
+        while (start < userInput.size() && userInput[start] == ' '){
+            ++start;
+        }
+        size_t end {start};
+        while (end < userInput.size() && userInput[end] != ' '){
+            ++end;
+        }
+        monthFilter = userInput.substr(start, end - start);
+        if (monthFilter.size() == 1){
+            monthFilter = "0" + monthFilter;
+        }
+    }
+
+    std::ifstream readStream("data/expences.csv");
+    std::string line;
+
+    std::cout<<"ID\tDate\t\tAmount\tDescription"<<std::endl;
+
+    double total {0.0};
+    int entryCount {0};
+
+    if (readStream.is_open()){
+        while (getline(readStream, line)){
+            if (line == ""){    break;  }
+
+            std::string ID;
+            std::string desc;
+            std::string amount;
+            std::string date;
+
+            std::stringstream ss(line);
+            std::getline(ss, ID, ',');
+            std::getline(ss, desc, ',');
+            std::getline(ss, amount, ',');
+            std::getline(ss, date, ',');
+
+            if (date.size() < 7){   continue;  }
+
+            if (!monthFilter.empty()){
+                std::string fileMonth {date.substr(5, 2)};
+                if (fileMonth != monthFilter){   continue;  }
+            }
+
+            std::cout<<std::left<<ID<<"\t"<<date<<"\t"<<"$"<<amount<<"\t"<<desc<<std::endl;
+            total += std::stod(amount);
+            ++entryCount;
+        }
+    }
+    readStream.close();
+
+    std::cout<<"---"<<std::endl;
+    std::cout<<"Entries: "<<entryCount<<"\tTotal: $"<<std::fixed<<std::setprecision(2)<<total<<std::endl;
+}
+
+void deleteExpence(std::string userInputLine){
+    userInputLine = userInputLine + " ";
+
+    size_t idIndex {userInputLine.rfind("--id")};
+    if (idIndex == std::string::npos){
+        logAction("Command input failed//Invalid command arguments");
+        std::cerr<<"Invalid command arguments"<<std::endl;
+        return;
+    }
+
+    int count{0};
+    size_t cash_idIndex;
+    size_t idPos[2];
+    size_t cash_LastIdIndex{idIndex};
+    while (count < 2){
+        cash_idIndex = userInputLine.find(" ", cash_LastIdIndex + 1);
+        idPos[count] = cash_idIndex;
+        cash_LastIdIndex = cash_idIndex;
+        ++count;
+    }
+    std::string targetId {userInputLine.substr(idPos[0] + 1, idPos[1] - idPos[0] - 1)};
+    if (targetId.empty()){
+        logAction("Command input failed//Invalid command arguments");
+        std::cerr<<"Invalid command arguments"<<std::endl;
+        return;
+    }
+
+    logAction("Deleting expence id " + targetId);
+
+    std::ifstream readStream("data/expences.csv");
+    std::string line;
+    std::vector<std::string> kept;
+    bool removed {false};
+
+    if (readStream.is_open()){
+        while (getline(readStream, line)){
+            if (line == ""){    break;  }
+
+            size_t idEndIndex {line.find(",")};
+            if (idEndIndex == std::string::npos){   continue;  }
+
+            std::string rowId {line.substr(0, idEndIndex)};
+            if (rowId == targetId){
+                removed = true;
+            } else {
+                kept.push_back(line);
+            }
+        }
+    }
+    readStream.close();
+
+    if (!removed){
+        logAction("Delete failed//ID not found");
+        std::cerr<<"ID not found"<<std::endl;
+        return;
+    }
+
+    std::ofstream outStream("data/expences.csv", std::ios::trunc);
+    if (outStream.is_open()){
+        for (const std::string& row : kept){
+            outStream<<row<<"\n";
+        }
+    }
+    outStream.close();
 }
