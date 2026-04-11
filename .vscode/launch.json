@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "d:/_Coding/ExpenceTracker",
-      "program": "d:/_Coding/ExpenceTracker/build/Debug/outDebug",
+      "cwd": "a:/WORK DIRECTORY/Projects/C-1_ExpenceTracker",
+      "program": "a:/WORK DIRECTORY/Projects/C-1_ExpenceTracker/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
